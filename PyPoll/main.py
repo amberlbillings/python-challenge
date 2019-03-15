@@ -14,14 +14,16 @@ votes_df = pd.DataFrame({"Candidate": candidates, "Total Votes": votes})
 
 winner_df = votes_df.sort_values(["Total Votes"], ascending=False)
 
+count_row = winner_df.shape[0]
+
 print("Election Results")
 print("-------------------------")
 print(f"Total Votes: {total_votes}")
 print("-------------------------")
-print(f"Khan: {round(votes_df.iloc[0, 1] / total_votes * 100, 3)}% ({votes_df.iloc[0, 1]})")
-print(f"Correy: {round(votes_df.iloc[1, 1] / total_votes * 100, 3)}% ({votes_df.iloc[1, 1]})")
-print(f"Li: {round(votes_df.iloc[2, 1] / total_votes * 100, 3)}% ({votes_df.iloc[2, 1]})")
-print(f"O'Tooley: {round(votes_df.iloc[3, 1] / total_votes * 100, 3)}% ({votes_df.iloc[3, 1]})")
+
+for i in range (count_row):
+    print(f"{winner_df.iloc[i,0]}: {round(winner_df.iloc[i, 1] / total_votes * 100, 3)}% ({winner_df.iloc[i, 1]})")
+
 print("-------------------------")
 print(f"Winner: {winner_df.iloc[0,0]}")
 print("-------------------------")
@@ -32,10 +34,12 @@ output.write("Election Results \n")
 output.write("------------------------- \n")
 output.write(f"Total Votes: {total_votes} \n")
 output.write("------------------------- \n")
-output.write(f"Khan: {round(votes_df.iloc[0, 1] / total_votes * 100, 3)}% ({votes_df.iloc[0, 1]}) \n")
-output.write(f"Correy: {round(votes_df.iloc[1, 1] / total_votes * 100, 3)}% ({votes_df.iloc[1, 1]}) \n")
-output.write(f"Li: {round(votes_df.iloc[2, 1] / total_votes * 100, 3)}% ({votes_df.iloc[2, 1]}) \n")
-output.write(f"O'Tooley: {round(votes_df.iloc[3, 1] / total_votes * 100, 3)}% ({votes_df.iloc[3, 1]}) \n")
+
+for i in range (count_row):
+    output.write(f"{winner_df.iloc[i,0]}: {round(winner_df.iloc[i, 1] / total_votes * 100, 3)}% ({winner_df.iloc[i, 1]}) \n")
+
 output.write("------------------------- \n")
 output.write(f"Winner: {winner_df.iloc[0,0]} \n")
 output.write("-------------------------")
+
+output.close()
